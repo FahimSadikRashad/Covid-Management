@@ -13,15 +13,38 @@ private :
     static int Admin_number;
 
 public:
-     void static increment()
+    void static increment()
     {
         Admin_number++;
     }
 
+    void set_file_on_update(string s)
+    {
+        if(s=="name"||s=="age"||s=="profession"||s=="email"||s=="address"||s=="phone")
+            setFname("info.txt");
+        else if(s=="percent" || s=="money" || s=="vaccinate")
+            cout<<"Yes", setFname("Paitien_info.txt");
+        else
+            setFname("Req_info.txt");
+    }
+
     void update_on_things()
     {
+        string id;
+        //ReadWrite b;
+        cout<<"In which id you are gonna update ?"<<endl;
+        cin>>id;
+        set_file_on_update("");
+        string temp=getInfo(id,"reqtype"),temp1=getInfo(id,"update");
+        //cout<<temp<<" "<<temp1<<" "<<temp2<<endl;
 
+
+        set_file_on_update(temp);
+        update(id,temp,temp1);
+        set_file_on_update("");
+        erase(id,temp,temp1);
     }
+
 };
 
 int Admin::Admin_number=0;
