@@ -19,24 +19,14 @@ private :
 public:
     friend  int countLeapYears(Date &d);
 	Date();
-    
 	void set_date(int day,int month,int year );
-    
 	int get_month();
-    
 	int  get_year();
-    
 	int  get_day();
-    
 	void save_current_date();
-     
 	string Convert_to_string();
-
-    
 	void Save_from_string(string s);
-    
 	void display();
-    
 	int operator-(Date &dt2);
     
 };
