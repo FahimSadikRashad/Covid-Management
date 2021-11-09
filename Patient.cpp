@@ -2,7 +2,6 @@
 using namespace std;
 
 
-
     void  Patient::increment()
     {
         Patient_number++;
@@ -10,8 +9,8 @@ using namespace std;
 
     void Patient::check_symptoms()
     {
-        int total=0;
-        bool reply_;
+        float total=0.0;
+        int  reply_;
         gotoxy(0, 3);
         cout << "\t\t Do you have fever(0/1)? -- ";
         cin >> reply_;
@@ -31,7 +30,7 @@ using namespace std;
         cout << "\n\t\t Do you have headache(0/1)? --";
         cin>>reply_;
         total += reply_ * 0.5;
-        
+
         system("cls");
         gotoxy(0, 1);
         cout << "\t     ******************************************************";
@@ -55,7 +54,6 @@ using namespace std;
         cout << "\n\t     Do you have chest pain(0/1)? -- ";
         cin >> reply_;
         total += reply_ * 2;
-        cout << total;
         percent=(total/9)*100;
         money_spent();
         vaccine();
@@ -83,34 +81,39 @@ using namespace std;
         save_date();
         gotoxy(23, 8);
         cout << "Percent " << percent << "% " << money << "$ " << d1.Convert_to_string() << " ";
-        if(vaccinate) 
+        if(vaccinate)
             cout<<"vaccinated\n";
         else
             cout << "not vaccinated\n\n";
     }
 
-    void  Patient::save_information_on_paitent()
+    void  Patient::save_information_on_paitent(string s)
     {
        setFname("Paitien_info.txt");
-       set_id();
-       set_user_name();
+       string temp=get_ID_based_user_name(s);
+
+       add(temp);
+       add(s);
+       //set_user_name();
        add(to_string(percent));
        add(to_string(money));
+       save_date();
        add(d1.Convert_to_string());
        add(to_string(vaccinate));
        add("");
     }
 
-    void  Patient::save_req(string req_type,string ID,string user_type)
+    void  Patient::save_req(string req_type, string update_type, string ID, string user_type)
     {
-         transform(req_type.begin(), req_type.end(), req_type.begin(), ::tolower);
-            setFname("Paitent_req_info.txt");
-            add(ID);
-            add(user_type);
-            add(req_type);
-            save_date();
-            add(d1.Convert_to_string());
-            add("");
+        transform(req_type.begin(), req_type.end(), req_type.begin(), ::tolower);
+        setFname("Req_info.txt");
+        add(ID);
+        add(user_type);
+        add(req_type);
+        add(update_type);
+        save_date();
+        add(d1.Convert_to_string());
+        add("");
     }
 
 int Patient::Patient_number=0;

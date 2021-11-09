@@ -2,8 +2,9 @@
 using namespace std;
 
 
-void password_in::getPass()
+string password_in::getPass()
 {
+    fflush(stdin);
     char a;
     //for(int j=0;;)
     //{
@@ -12,7 +13,7 @@ void password_in::getPass()
             a = getch();
             if((a>='a'&&a<='z')||(a>='A'&&a<='Z')||(a>='0'&&a<='9'))
             {
-                pas[i]=a;
+                pas += a;
                 ++i;
                 cout<<"*";
             }
@@ -23,11 +24,12 @@ void password_in::getPass()
             }
             if(a=='\r')
             {
-                pas[i] = '\0';
                 break;
             }
             passLen = i;
         }
+        
+        return pas;
         //if(checkPass())
         //    break;
     //}
@@ -51,6 +53,6 @@ void password_in::showLength()
 }
 
 
-string password_in::pas;
+string password_in::pas = "";
 int password_in::passLen;
 

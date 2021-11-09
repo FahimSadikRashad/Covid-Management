@@ -1,3 +1,4 @@
+#pragma once
 #ifndef DATA_FILTER_H
 #define DATA_FILTER_H
 #include "ReadWrite.h"
@@ -9,16 +10,17 @@
 
 using namespace std;
 
-class data_filter :  public ReadWrite
+class data_filter : virtual public ReadWrite
 {
-  int pos;
+    int pos;
     fstream file2;
-    string fname = "info.txt", temp1 = "";
+    string /*fname = "info.txt",*/ temp1 = "";
 public:
-  void read(string category);  ///over ridden function
+    void read(string category);  ///over ridden function
+    bool catagory_data(string s);
 
-  void display(); ///over ridden function
-  ~data_filter(){};
+    void display(); ///over ridden function
+    ~data_filter() {};
 };
 
 #endif

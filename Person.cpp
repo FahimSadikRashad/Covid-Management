@@ -11,7 +11,7 @@ void gotoxy(int x, int y)
 
 void Person::set_id()
 {
-    ReadWrite::add(to_string(Account::get_register_number()+getTotalID()));
+    ReadWrite::add("id-"+to_string(Account::get_register_number()+getTotalID()));
 }
 
 void Person::set_name()
@@ -108,36 +108,37 @@ string Person::get_gender()
     return gender;
 }
 
-void Person::add_catagory()
+void Person::add_catagory(string str)
 {
     setFname("Catagory.txt");
-    add(get_occupation());
+    add(str);
 }
-void Person::get_catagory_present()
+void Person::get_catagory_present(string str)
 {
+    cout << "occupation = " << str << endl;
     fstream f;
     f.open("Catagory.txt",ios::in);
     bool flag=false;
     string line;
     if(!f)
     {
-        cout<<"File not found"<<endl;
+        cout<<"--File not found--"<<endl;
     }
     else
     {
         while(f.good())
         {
             getline(f,line);
-            if(line==(get_occupation())) flag=true;
+            if(line == str) flag=true;
             if(flag)
-            {
-                add_catagory();
                 break;
-            }
+        }
+        if(!flag)
+        {
+            add_catagory(str);
         }
     }
     f.close();
-
 }
 
 void Person::get_data()

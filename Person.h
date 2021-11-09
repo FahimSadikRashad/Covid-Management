@@ -33,8 +33,9 @@ class Person: public Account
     void get_data();
     void set_id();
     void set_user_name();
-    void get_catagory_present();
-    void add_catagory();
+    void get_catagory_present(string str);
+    void add_catagory(string str);
+    void filter(string category);
     ~Person(){};
 };
 

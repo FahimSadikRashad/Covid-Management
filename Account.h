@@ -13,7 +13,7 @@
 
 using namespace std;
 
-class Account : public login, public Register, public ReadWrite
+class Account : public login, public Register, virtual public ReadWrite
 {
 private:
     static int id;

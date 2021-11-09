@@ -12,7 +12,7 @@ protected:
     static int passLen;
 
 public:
-    static void getPass();
+    static string getPass();
 
     static void showPass();
     static int checkPass();

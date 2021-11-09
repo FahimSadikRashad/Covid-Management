@@ -4,6 +4,7 @@ using namespace std;
 Account::Account()
 {
     setNOID();
+    number_of_id++;
 };
 
 void Account::getData(string user, string pass)
@@ -61,10 +62,10 @@ bool Account::check_file(string file)
 void Account::Add_data(int ch)
 {
     set_file(ch);
-    string temp = "";
-    temp += new_user[id-1]->getName() + " " + new_user[id-1]->getPass();
     setFname(f1);
-    add(temp);
+    add(new_user[id-1]->getName());
+    add(new_user[id-1]->getPass());
+    add("");
 }
 
 void Account::set_success_flag(bool mode)
@@ -89,8 +90,10 @@ void Account::only_register(int ch)
 {
     Account::id++;
     Add_data(ch);
+
     save_register_number();
     number_of_person_register++;
+
 }
 
 void Account::messageE()

@@ -1,3 +1,4 @@
+
 #include "ReadWrite.h"
 #include <iostream>
 #include <string>
@@ -172,17 +173,15 @@ void ReadWrite::add_additional_data(string s,string key)
 
     }
 
-
     f3.close();
     f3.open(fname,ios::out);
     if (!f3)
         cout << "File Not Found" << endl;
 
     for(int i = 0; i < tokens.size(); i++)
-        f3 << tokens[i] << '\n';
+        f3 << tokens[i] ;
     f3.close();
 }
-
 
 /// Convert the key into corresponding index of the vector
 int ReadWrite::keyToIndex(string key)
@@ -237,11 +236,9 @@ int ReadWrite::keyToIndex(string key)
             return 3;
 
         }
-
 }
 
-
-/// 1 Argument display func to show all information from the file
+/// 0 Argument display func to show all information from the file
 void ReadWrite::display()
 {
     read("");
@@ -251,17 +248,33 @@ void ReadWrite::display()
         cout << i << endl;
 }
 
-
-/// 2 Argument display func to show specific entry based on search ID
+/// 1 Argument display func to show specific entry based on search ID
 void ReadWrite::display(string searchID)
 {
     read(searchID);
     if (show.empty())
         cout << searchID << " Not Found" << endl;
-    //for (auto i : v1)
     cout << show[0] << endl;
 }
 
+void ReadWrite::display(string searchID, string username)
+{
+    read(searchID);
+    if (show.empty()){
+        cout << "\n\n\n\t\t\t    " << username << " DOESN'T EXIST" << endl;
+        return;
+    }
+    cout << "\t\t\t\t " << username << "\'s PROFILE" <<
+            "\n\t\t\t  --------------------------- " <<
+            "\n\t\t\t    NAME       : " << v1[0] << 
+            "\n\t\t\t    AGE        : " << v1[1] << 
+            "\n\t\t\t    GENDER     : " << v1[2] << 
+            "\n\t\t\t    OCCUPATION : " << v1[3] << 
+            "\n\t\t\t    EMAIL      : " << v1[4] << 
+            "\n\t\t\t    ADDRESS    : " << v1[5] << 
+            "\n\t\t\t    CONTACT NO : " << v1[6];
+    v1.clear();
+}
 
 /// Simply write the passed data at the end of the file
 void ReadWrite::add(string data)
@@ -281,7 +294,7 @@ void ReadWrite::add(string data)
 
 /// Update any attribute of the person like name, age, etc.
 /// If passed key and newData is "" then it deletes that person
-void ReadWrite::update(string searchID, string key, string newData)
+bool ReadWrite::update(string searchID, string key, string newData)
 {
     file1.open(fname);
     string line;
@@ -329,9 +342,12 @@ void ReadWrite::update(string searchID, string key, string newData)
             file1 << i << endl;  /// which changes the display order of the next line as a blank
         }                         ///  line is read in the beginning of next data reading
         file1.close();
+        return true;
     }
-    else
+    else{
         cout << searchID << " Not Found" << endl;
+        return false;
+    }
 }
 
 
@@ -358,6 +374,33 @@ bool ReadWrite::onlyRead(string name, string pass)
             }
         }
     }
+    file1.close();
+    return flag;
+}
+
+bool ReadWrite::onlyRead(string name)
+{
+    bool flag = false;
+    file1.open(fname, ios::in);
+    if (!file1)
+    {
+        cout << "File Not Found" << endl;
+        return flag;
+    }
+    else
+    {
+        string line;
+        while (file1.good())
+        {
+            file1 >> line;
+            if (line == name)
+            {
+                flag = true;
+                break;
+            }
+        }
+    }
+    file1.close();
     return flag;
 }
 
@@ -396,4 +439,41 @@ void ReadWrite::erase(string id,string reqtype,string up)
         }
         //cout<<"line"<<line<<endl;
     }
+
+string ReadWrite::get_ID_based_user_name(string user_name)
+    {
+        int cnt=0;
+        bool flag=false;
+        string l1,key="\0";
+        file1.open("info.txt",ios::in);
+        if (!file1)
+        {
+            cout << "File Not Found" << endl;
+        }
+        else
+        {
+            while(file1.good())
+            {
+                cnt++;
+                getline(file1,l1);
+                if(cnt==1)
+                    key=l1;
+                if(cnt==9)
+                {
+                    if(user_name==l1)
+                        flag=true;
+                    getline(file1, l1);
+                    cnt=0;
+                }
+                if(flag)
+                    break;
+            }
+        }
+        file1.close();
+        if(!flag)
+            return "-1";
+        else
+            return key;
+    }
+
 string ReadWrite::fname="";

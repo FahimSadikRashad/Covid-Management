@@ -15,6 +15,7 @@ protected:
     vector<string> v1;
     vector<string> show;
     fstream file1;
+    vector<string> show1;
     static string  fname ; string temp = "";
 
 
@@ -38,24 +39,28 @@ public:
     /// Convert the key into corresponding index of the vector
     int keyToIndex(string key);
 
-    /// 1 Argument display func to show all information from the file
+    /// 0 Argument display func to show all information from the file
     void display();
 
-    /// 2 Argument display func to show specific entry based on search ID
+    /// 1 Argument display func to show specific entry based on search ID
     void display(string searchID);
+
+    void display(string searchID, string username);
 
     /// Simply write the passed data at the end of the file
     void add(string data);
 
     /// Update any attribute of the person like name, age, etc.
     /// If passed key and newData is "" then it deletes that person
-    void update(string searchID, string key, string newData);
+    bool update(string searchID, string key, string newData);
 
     bool onlyRead(string name, string pass);
+    bool onlyRead(string name);
 
     /// Delete specific person's entry from the file
     void erase_data(string searchID);
-   void erase(string id,string reqtype,string up);
+    void erase(string id,string reqtype,string up);
+    string get_ID_based_user_name(string user_name);
     ~ReadWrite(){};
 };
 

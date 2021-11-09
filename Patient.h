@@ -24,8 +24,8 @@ public :
 	void static money_spent();
 	void static vaccine();
 	void static display();
-	void  save_information_on_paitent();
-	void  save_req(string req_type,string ID,string user_type);
+	void  save_information_on_paitent(string );
+	void  save_req(string req_type, string update_type, string ID,string user_type);
 };
 #endif
 
